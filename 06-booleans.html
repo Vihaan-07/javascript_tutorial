@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booleans</title>
+</head>
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <button onclick="play(1);">Rock</button>
+    <button onclick="play(2);">Paper</button>
+    <button onclick="play(3);">Scissors</button>
+
+    <script>
+        function play(player_input){
+            comp_input = Math.round(Math.random() * 3);
+            let choices = ["rock", "paper", "scissors"];
+            player_input = choices[player_input - 1];
+            comp_input = choices[comp_input - 1];
+
+            switch(player_input){
+                case "rock":
+                    if (comp_input == "paper"){
+                        alert("You chose rock and the computer chose paper. You lose!");
+                    } else if(comp_input == "scissors"){
+                        alert("You chose rock and the computer chose scissors. You win!");
+                    } else{
+                        alert("You both picked rock. Tie!");
+                    }
+                    break;
+
+                case "paper":
+                    if (comp_input == "scissors"){
+                        alert("You chose paper and the computer chose scissors. You lose!");
+                    } else if(comp_input == "rock"){
+                        alert("You chose paper and the computer chose rock. You win!");
+                    } else{
+                        alert("You both picked paper. Tie!");
+                    }
+                    break;
+
+                case "scissors":
+                    if (comp_input == "rock"){
+                        alert("You chose scissors and the computer chose rock. You lose!");
+                    } else if(comp_input == "paper"){
+                        alert("You chose scissors and the computer chose paper. You win!");
+                    } else{
+                        alert("You both picked scissors. Tie!");
+                    }
+                    break;                    
+            }
+        }
+
+    </script>
+</body>
+</html>
