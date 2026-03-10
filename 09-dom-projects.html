@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Projects</title>
+</head>
+<body>
+    <p>Youtube Subscribe Button</p>
+    <button class="js-sub" onclick = "togglesub();">Subscribe</button>
+
+    <br>
+    <br>
+    <br>
+
+    <p>Rock Paper Scissors</p>
+    <button onclick="play(1);">Rock</button>
+    <button onclick="play(2);">Paper</button>
+    <button onclick="play(3);">Scissors</button>
+    <p class="results">Win:0 Loss:0 Tie:0</p>
+    <button onclick="resetScore();">Reset Score</button>
+
+    <br>
+    <br>
+    <br>
+
+    <p>Amazon Shipping Calculator</p>
+    <p>Orders under $40 = +$10 shipping.<p>
+    <p>Orders over $40 = FREE shipping.</p>
+    <input class="cost" placeholder="Cost of order" type="number">
+    <button class="js-calculateCost" onclick = "calculateCost();">Calculate</button>
+    <p class="finalCost"></p>
+
+    <script>
+        const score = JSON.parse(localStorage.getItem("score")) || {win:0, loss:0, tie:0};
+
+        function play(player_input) {
+            comp_input = Math.floor(Math.round(Math.random() * 3));
+            let choices = ["rock", "paper", "scissors"];
+            player_input = choices[player_input - 1];
+            comp_input = choices[comp_input - 1];
+
+            switch (player_input) {
+                case "rock":
+                    if (comp_input == "paper") {
+                        score.loss++;
+                        document.querySelector('.results').innerHTML = `<p>You chose rock and the computer chose paper. You lose!</p>
+                        Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`;
+
+                    } else if (comp_input == "scissors") {
+                        score.win++;
+                        document.querySelector('.results').innerHTML = `<p>You chose rock and the computer chose scissors. You win!</p>
+
+                        Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`;
+                    } else {
+                        score.tie++;
+                        document.querySelector('.results').innerHTML = `<p>You both picked rock. Tie!</p>
+                        Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`;
+                    }
+                    break;
+
+                case "paper":
+                    if (comp_input == "scissors") {
+                        score.loss++;
+                        document.querySelector('.results').innerHTML = `<p>You chose paper and the computer chose scissors. You lose!</p>
+                        Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`;
+                    } else if (comp_input == "rock") {
+                        score.win++;
+                        document.querySelector('.results').innerHTML = `<p>You chose paper and the computer chose rock. You win!</p>
+                        Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`       ;
+                    } else {
+                        score.tie++;
+                        document.querySelector('.results').innerHTML = `<p>You both picked paper. Tie!</p>
+                        Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`;
+                    }
+                    break;
+
+                case "scissors":
+                    if (comp_input == "rock") {
+                        score.loss++;
+                        document.querySelector('.results').innerHTML = `<p>You chose scissors and the computer chose rock. You lose!</p>
+                        Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`;
+                    } else if (comp_input == "paper") {
+                        score.win++;
+                        document.querySelector('.results').innerHTML = `<p>You chose scissors and the computer chose paper. You win!</p>
+                        Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`;
+                    } else {
+                        score.tie++;
+                        document.querySelector('.results').innerHTML = `<p>You both picked scissors. Tie!</p>
+                        Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`;
+                    }
+                    break;
+            }
+
+            localStorage.setItem("score", JSON.stringify(score));
+        }
+     
+        function resetScore(){
+            score.win = 0;
+            score.loss = 0;
+            score.tie = 0;
+            localStorage.setItem("score", JSON.stringify(score));
+            document.querySelector('.results').innerHTML = `Wins: ${score.win} Loss: ${score.loss} Tie: ${score.tie}`;
+        }
+     
+        function togglesub(){
+            let currentStatus = document.querySelector('.js-sub').innerText;
+            if(currentStatus == "Subscribe"){
+                document.querySelector('.js-sub').innerText = "Subscribed";
+            } else{
+                document.querySelector('.js-sub').innerText = "Subscribe";
+            }
+        }
+    
+        function calculateCost(){
+            let cost = Number(document.querySelector('.cost').value);
+            if(!cost){
+                document.querySelector('.finalCost').innerHTML = "No cost entered";
+            } else if(cost > 40){
+                document.querySelector('.finalCost').innerHTML = "Free Shipping - Total is " + cost;
+            } else{
+                document.querySelector('.finalCost').innerHTML = "$" + (10+cost);
+            }
+        }
+    </script>
+</body>
+</html>
